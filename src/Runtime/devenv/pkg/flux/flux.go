@@ -98,8 +98,8 @@ type InstallOptions struct {
 	OptimizeProbes    bool
 }
 
-// LocalTestInstallOptions returns InstallOptions optimized for local testing.
-func LocalTestInstallOptions() InstallOptions {
+// LocalInstallOptions returns InstallOptions optimized for local provisioning.
+func LocalInstallOptions() InstallOptions {
 	return InstallOptions{
 		LeaderElection:    false,
 		Concurrent:        fluxInstallConcurrency,

@@ -52,7 +52,13 @@ func (b Backend) SupportsObserved(observed executor.ObservedResource) bool {
 	switch observed.Type {
 	case executor.ResourceTypeImage, executor.ResourceTypeNetwork, executor.ResourceTypeContainer:
 		return true
-	case executor.ResourceTypeUnknown:
+	case executor.ResourceTypeUnknown,
+		executor.ResourceTypeKindCluster,
+		executor.ResourceTypeFlux,
+		executor.ResourceTypeOCI,
+		executor.ResourceTypeKubernetes,
+		executor.ResourceTypeLocalFile,
+		executor.ResourceTypeGitCheckout:
 		return false
 	default:
 		return false
@@ -138,7 +144,13 @@ func (b Backend) Destroy(ctx context.Context, id resource.ResourceID, observed e
 		return nil
 	case executor.ResourceTypeImage:
 		return nil
-	case executor.ResourceTypeUnknown:
+	case executor.ResourceTypeUnknown,
+		executor.ResourceTypeKindCluster,
+		executor.ResourceTypeFlux,
+		executor.ResourceTypeOCI,
+		executor.ResourceTypeKubernetes,
+		executor.ResourceTypeLocalFile,
+		executor.ResourceTypeGitCheckout:
 		return fmt.Errorf("%w: %v", errUnknownResourceType, observed.Type)
 	default:
 		return fmt.Errorf("%w: %v", errUnknownResourceType, observed.Type)
